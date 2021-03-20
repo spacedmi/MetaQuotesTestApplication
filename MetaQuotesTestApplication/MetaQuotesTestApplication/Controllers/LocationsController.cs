@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MetaQuotes.TestApplication.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,9 +11,11 @@ namespace MetaQuotes.TestApplication.Controllers
     [ApiController]
     public class LocationsController : ControllerBase
     {
-        public LocationsController()
-        {
+        private readonly IDataStorage dataStorage;
 
+        public LocationsController(IDataStorage dataStorage)
+        {
+            this.dataStorage = dataStorage;
         }
 
         [HttpGet("/ip/location")]

@@ -1,3 +1,6 @@
+using Autofac;
+using MetaQuotes.TestApplication.Autofac;
+using MetaQuotes.TestApplication.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +18,11 @@ namespace MetaQuotesTestApplication
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "TestApplication", Version = "v1", }));
         }
 
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterModule<ApplicationModule>();
+        }
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -29,7 +37,7 @@ namespace MetaQuotesTestApplication
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "TestApplications API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "TestApplication API V1");
             });
 
             app.UseEndpoints(endpoints =>
